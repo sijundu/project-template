@@ -17,4 +17,6 @@ lazy val rocketchip = RootProject(file("rocket-chip"))
 
 lazy val testchipip = project.settings(commonSettings).dependsOn(rocketchip)
 
-lazy val example = (project in file(".")).settings(commonSettings).dependsOn(testchipip)
+lazy val testers = (project in file("chisel-testers")).settings(commonSettings).dependsOn(rocketchip)
+
+lazy val example = (project in file(".")).settings(commonSettings).dependsOn(testers, testchipip)
