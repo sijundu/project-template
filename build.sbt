@@ -1,9 +1,20 @@
+
+lazy val dumpCsrc = taskKey[Unit]("Dump csrc to a directory from JAR files.")
+
+dumpCsrc := {
+  IO.createDirectory(file("generated-src"))
+  (dependencyClasspath in Compile).value.files foreach { entry =>
+    IO.unzip(entry, file("generated-src"), GlobFilter("csrc/*"))
+  }
+}
+
 lazy val commonSettings = Seq(
   organization := "edu.berkeley.cs",
   version := "1.0",
   scalaVersion := "2.12.4",
   traceLevel := 15,
   test in assembly := {},
+  dumpCsrc in Compile := Def.sequential(compile in Compile).value,
   assemblyMergeStrategy in assembly := { _ match {
     case PathList("META-INF", "MANIFEST.MF") => MergeStrategy.discard
     case _ => MergeStrategy.first}},

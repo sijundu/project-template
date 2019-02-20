@@ -24,8 +24,6 @@ include $(sim_dir)/Makefrag-verilator
 sim_blackboxes = \
   $(build_dir)/firrtl_black_box_resource_files.f
 
-rocketchip_vsrc_dir = $(ROCKETCHIP_DIR)/src/main/resources/vsrc
-
 sim_vsrcs = \
 	$(VERILOG_FILE) \
 	$(HARNESS_FILE) \
